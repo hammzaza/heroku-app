@@ -9,7 +9,7 @@ module.exports = function(server){
         });
         socket.on('updateState',function(data){
             console.log(data)
-            socket.emit('MoveController',data);
+            io.emit('MoveController',data);
         })
     });
 };
