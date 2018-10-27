@@ -6,8 +6,5 @@ module.exports = function(server){
             //you have temp,humidity,co2level,lightintensity in a json format.
             //save this in database
         });
-        socket.on('StopController',function(response){
-            console.log(response);
-        });
     });
 };

@@ -25,7 +25,6 @@ mongoose.connect(configDB);
 require('./src/auth/auth')(app,passport);
 require('./src/auth/passport')(passport);
 require('./src/routes/public')(app);
-
 var server = app.listen(port, function(){
     console.log("Listening on port "+ port);
 });
