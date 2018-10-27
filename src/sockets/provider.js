@@ -10,6 +10,9 @@ module.exports = function(server){
         socket.on('updateState',function(data){
             console.log(data)
             io.emit('MoveController',data);
-        })
+        });
+        socket.on('Stop',function(state){
+            io.emit('StopController',state);
+        });
     });
 };

@@ -47,7 +47,7 @@
             loopthis = setInterval(forward, 0);
         }).mouseup(function () {
             console.log('Stopped');
-            socket.emit('StopController','Done');
+            socket.emit('Stop','Done');
             clearInterval(loopthis);
         });
         
@@ -55,22 +55,22 @@
             loopthis = setInterval(backward, 0);
         }).mouseup(function () {
             console.log('Stopped');
-            socket.emit('StopController','Done');
+            socket.emit('Stop','Done');
             clearInterval(loopthis);
         });
         $('.crossLeft').mousedown('click', function() {
-            socket.emit('StopController','Done');
+            socket.emit('Stop','Done');
             loopthis = setInterval(left, 0);
         }).mouseup(function () {
             console.log('Stopped');
-            socket.emit('StopController','Done');
+            socket.emit('Stop','Done');
             clearInterval(loopthis);
         });
         $('.crossRight').mousedown('click', function() {
             loopthis = setInterval(right, 0);
         }).mouseup(function () {
             console.log('Stopped');
-            socket.emit('StopController','Done');
+            socket.emit('Stop','Done');
             clearInterval(loopthis);
         });
         function forward(){
