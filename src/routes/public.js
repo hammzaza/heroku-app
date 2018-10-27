@@ -5,8 +5,8 @@ module.exports = function(app){
     });
     app.get('/test',function(req,res){
         newUser = new User();
-        newUser.local.username = 'admin';
-        newUser.local.password = 'admin';
+        newUser.local.username = 'hamza';
+        newUser.local.password = '1@34qwer';
         newUser.save(function(err) {
             if (err)
                 throw err;
