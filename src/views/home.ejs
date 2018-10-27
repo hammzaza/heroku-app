@@ -1,0 +1,85 @@
+<html>
+    <head>
+        
+        <link rel="stylesheet" type="text/css" href="/css/controller.css">
+        <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+        <script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    </head>
+    <body>
+        <div class="container">
+                <div class=controller>
+                    <div class=centerBlue>
+                        <div class=centerLeft></div>   
+                        <div class=centerRight></div>  
+                    </div>
+                    <div class=centerSelect>
+                        <div class=SLeft></div>
+                        <div class=SRight></div>
+                    </div>
+                    
+                    <div class=controllerLeft>
+                        <div class=circle></div>
+                        <div class=crossCenter>
+                            <div class=crossTop></div>
+                            <div class=crossBottom></div>
+                            <div class=crossLeft></div>
+                            <div class=crossRight></div>
+                            <div class=crossCircle></div>
+                        </div>
+                    </div>
+                    <div class=controllerRight>
+                        <div class=backButton1Center>
+                            <div class= cornerLeft1></div>
+                            <div class= cornerRight1></div>
+                        </div>
+                        <div class=backButton2Center>
+                            <div class= cornerLeft2></div>
+                            <div class= cornerRight2></div>
+                        </div>
+                    </div>
+                </div>
+        </div>
+        <script src="/socket.io/socket.io.js"></script>
+        <script>
+        console.log('hello')
+        var socket = io();
+        $('.crossTop').mousedown('click', function() {
+            loopthis = setInterval(forward, 100);
+        }).mouseup(function () {
+            clearInterval(loopthis);
+            socket.emit('StopController','Done');
+        });
+        
+        $('.crossBottom').mousedown('click', function() {
+            loopthis = setInterval(backward, 100);
+        }).mouseup(function () {
+            clearInterval(loopthis);
+            socket.emit('StopController','Done');
+        });
+        $('.crossLeft').mousedown('click', function() {
+            loopthis = setInterval(left, 100);
+        }).mouseup(function () {
+            clearInterval(loopthis);
+            socket.emit('StopController','Done');
+        });
+        $('.crossRight').mousedown('click', function() {
+            loopthis = setInterval(right, 100);
+        }).mouseup(function () {
+            clearInterval(loopthis);
+            socket.emit('StopController','Done');
+        });
+        function forward(){
+            socket.emit('MoveController','up');
+        }
+        function backward(){
+            socket.emit('MoveController','down');
+        }
+        function left(){
+            socket.emit('MoveController','left');
+        }
+        function forward(){
+            socket.right('MoveController','right');
+        }
+        </script>
+    </body>
+</html>
