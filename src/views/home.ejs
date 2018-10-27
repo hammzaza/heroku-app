@@ -59,7 +59,6 @@
             clearInterval(loopthis);
         });
         $('.crossLeft').mousedown('click', function() {
-            console.log('Stopped');
             socket.emit('StopController','Done');
             loopthis = setInterval(left, 0);
         }).mouseup(function () {
