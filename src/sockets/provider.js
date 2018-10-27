@@ -8,6 +8,7 @@ module.exports = function(server){
             console.log(data);
         });
         socket.on('updateState',function(data){
+            console.log(data)
             socket.emit('MoveController',data);
         })
     });
