@@ -75,19 +75,19 @@
         });
         function forward(){
             console.log('up')
-            socket.emit('MoveController','up');
+            socket.emit('updateState','up');
         }
         function backward(){
             console.log('down');
-            socket.emit('MoveController','down');
+            socket.emit('updateState','down');
         }
         function left(){
             console.log('left');
-            socket.emit('MoveController','left');
+            socket.emit('updateState','left');
         }
         function right(){
             console.log('right')
-            socket.emit('MoveController','right');
+            socket.emit('updateState','right');
         }
         </script>
     </body>

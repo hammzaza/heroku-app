@@ -7,8 +7,8 @@ module.exports = function(server){
             //save this in database
             console.log(data);
         });
-        socket.on('StopController',function(data){
-            console.log(data);
+        socket.on('updateState',function(data){
+            socket.emit('MoveController',data);
         })
     });
 };
