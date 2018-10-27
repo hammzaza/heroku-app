@@ -44,41 +44,51 @@
         console.log('hello')
         var socket = io();
         $('.crossTop').mousedown('click', function() {
-            loopthis = setInterval(forward, 100);
+            loopthis = setInterval(forward, 0);
         }).mouseup(function () {
-            clearInterval(loopthis);
+            console.log('Stopped');
             socket.emit('StopController','Done');
+            clearInterval(loopthis);
         });
         
         $('.crossBottom').mousedown('click', function() {
-            loopthis = setInterval(backward, 100);
+            loopthis = setInterval(backward, 0);
         }).mouseup(function () {
-            clearInterval(loopthis);
+            console.log('Stopped');
             socket.emit('StopController','Done');
+            clearInterval(loopthis);
         });
         $('.crossLeft').mousedown('click', function() {
-            loopthis = setInterval(left, 100);
-        }).mouseup(function () {
-            clearInterval(loopthis);
+            console.log('Stopped');
             socket.emit('StopController','Done');
+            loopthis = setInterval(left, 0);
+        }).mouseup(function () {
+            console.log('Stopped');
+            socket.emit('StopController','Done');
+            clearInterval(loopthis);
         });
         $('.crossRight').mousedown('click', function() {
-            loopthis = setInterval(right, 100);
+            loopthis = setInterval(right, 0);
         }).mouseup(function () {
-            clearInterval(loopthis);
+            console.log('Stopped');
             socket.emit('StopController','Done');
+            clearInterval(loopthis);
         });
         function forward(){
+            console.log('up')
             socket.emit('MoveController','up');
         }
         function backward(){
+            console.log('down');
             socket.emit('MoveController','down');
         }
         function left(){
+            console.log('left');
             socket.emit('MoveController','left');
         }
-        function forward(){
-            socket.right('MoveController','right');
+        function right(){
+            console.log('right')
+            socket.emit('MoveController','right');
         }
         </script>
     </body>
