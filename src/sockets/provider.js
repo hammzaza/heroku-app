@@ -3,9 +3,8 @@ module.exports = function(server){
     io.on('connection', function(socket){
         console.log('connected');
         socket.on('sensorData', function(data){
-            //you have temp,humidity,co2level,lightintensity in a json format.
-            //save this in database
             console.log(data);
+            io.emit('Data',data);
         });
         socket.on('updateState',function(data){
             console.log(data)

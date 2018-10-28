@@ -1,94 +1,185 @@
-<html>
-    <head>
-        
-        <link rel="stylesheet" type="text/css" href="/css/controller.css">
-        <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
-        <script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
-    </head>
-    <body>
-        <div class="container">
-                <div class=controller>
-                    <div class=centerBlue>
-                        <div class=centerLeft></div>   
-                        <div class=centerRight></div>  
-                    </div>
-                    <div class=centerSelect>
-                        <div class=SLeft></div>
-                        <div class=SRight></div>
-                    </div>
-                    
-                    <div class=controllerLeft>
-                        <div class=circle></div>
-                        <div class=crossCenter>
-                            <div class=crossTop></div>
-                            <div class=crossBottom></div>
-                            <div class=crossLeft></div>
-                            <div class=crossRight></div>
-                            <div class=crossCircle></div>
-                        </div>
-                    </div>
-                    <div class=controllerRight>
-                        <div class=backButton1Center>
-                            <div class= cornerLeft1></div>
-                            <div class= cornerRight1></div>
-                        </div>
-                        <div class=backButton2Center>
-                            <div class= cornerLeft2></div>
-                            <div class= cornerRight2></div>
-                        </div>
-                    </div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" type="text/css" href="/css/controller.css">
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
+    <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    <title>Action Panel</title>
+</head>
+<body>
+      
+        <!-- Header Nav bar -->
+        <header class="mdl-layout__header mdl-layout__header mdl-color--darkblue-100 mdl-color-text--black-800">
+            <div class="mdl-layout__header-row">
+              <span class="mdl-layout-title">Control Panel</span>
+              <div class="mdl-layout-spacer"></div>
+              
+            </div>
+          </header>
+
+          <div class="mdl-layout-spacer"></div>
+    
+
+
+        <!-- Video PlaceHolder -->
+        <div class="mdl-card mdl-shadow--2dp mdl-cell--10-col" style="margin-top:1em">
+                <div class="mdl-card__title mdl-card--expand">
+                  <h4>
+                      Your video here
+                  </h4>
+                </div>
+                <div class="mdl-card__actions mdl-card--border">
+                  <p>Here is a discreption of what exactly happening in the video</p>
                 </div>
         </div>
-        <script src="/socket.io/socket.io.js"></script>
-        <script>
-        console.log('hello')
-        var socket = io();
-        $('.crossTop').mousedown('click', function() {
-            loopthis = setInterval(forward, 0);
-        }).mouseup(function () {
-            console.log('Stopped');
-            socket.emit('Stop','Done');
-            clearInterval(loopthis);
-        });
+
+        <center>
+                <h4><b>SENSORS DATA</b></h4>
+        </center>
         
-        $('.crossBottom').mousedown('click', function() {
-            loopthis = setInterval(backward, 0);
-        }).mouseup(function () {
-            console.log('Stopped');
-            socket.emit('Stop','Done');
-            clearInterval(loopthis);
-        });
-        $('.crossLeft').mousedown('click', function() {
-            socket.emit('Stop','Done');
-            loopthis = setInterval(left, 0);
-        }).mouseup(function () {
-            console.log('Stopped');
-            socket.emit('Stop','Done');
-            clearInterval(loopthis);
-        });
-        $('.crossRight').mousedown('click', function() {
-            loopthis = setInterval(right, 0);
-        }).mouseup(function () {
-            console.log('Stopped');
-            socket.emit('Stop','Done');
-            clearInterval(loopthis);
-        });
-        function forward(){
-            console.log('up')
-            socket.emit('updateState','up');
-        }
-        function backward(){
-            console.log('down');
-            socket.emit('updateState','down');
-        }
-        function left(){
-            console.log('left');
+        <!-- Sensors Data -->
+        <div class="demo-charts mdl-color--white mdl-shadow--2dp mdl-cell mdl-cell--12-col mdl-grid">
+                <svg fill="currentColor" width="100px" height="100px" viewBox="0 0 1 1" class="demo-chart mdl-cell mdl-cell--4-col mdl-cell--3-col-desktop">
+                  <use xlink:href="#piechart" mask="url(#piemask)" />
+                  <text id="temperature" x="0.5" y="0.5" font-family="Roboto" font-size="0.3" fill="#888" text-anchor="middle" dy="0.1">82</text>
+                </svg>
+                <svg fill="currentColor" width="100px" height="100px" viewBox="0 0 1 1" class="demo-chart mdl-cell mdl-cell--4-col mdl-cell--3-col-desktop">
+                  <use xlink:href="#piechart" mask="url(#piemask)" />
+                  <text id = "humidity" x="0.5" y="0.5" font-family="Roboto" font-size="0.3" fill="#888" text-anchor="middle" dy="0.1">82</text>
+                </svg>
+                <svg fill="currentColor" width="100px" height="100px" viewBox="0 0 1 1" class="demo-chart mdl-cell mdl-cell--4-col mdl-cell--3-col-desktop">
+                  <use xlink:href="#piechart" mask="url(#piemask)" />
+                  <text id="light-visible" x="0.5" y="0.5" font-family="Roboto" font-size="0.3" fill="#888" text-anchor="middle" dy="0.1">82</text>
+                </svg>
+                <svg fill="currentColor" width="100px" height="100px" viewBox="0 0 1 1" class="demo-chart mdl-cell mdl-cell--4-col mdl-cell--3-col-desktop">
+                  <use xlink:href="#piechart" mask="url(#piemask)" />
+                  <text id="light-infrared" x="0.5" y="0.5" font-family="Roboto" font-size="0.3" fill="#888" text-anchor="middle" dy="0.1">82</text>
+                </svg>
+        </div>
+
+
+    <div class=controller>
+        <div class=centerBlue>
+            <div class=centerLeft></div>   
+            <div class=centerRight></div>  
+        </div>
+        <div class=centerSelect>
+            <div class=SLeft></div>
+            <div class=SRight></div>
+        </div>
+        
+        <div class=controllerLeft>
+            <div class=circle></div>
+            <div class=crossCenter>
+                <div class=crossTop></div>
+                <div class=crossBottom></div>
+                <div class=crossLeft></div>
+                <div class=crossRight></div>
+                <div class=crossCircle></div>
+            </div>
+        </div>
+        <div class=controllerRight>
+            <div class=backButton1Center>
+                <div class= cornerLeft1></div>
+                <div class= cornerRight1></div>
+            </div>
+            <div class=backButton2Center>
+                <div class= cornerLeft2></div>
+                <div class= cornerRight2></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+    var socket = io();
+    socket.on('Data',function(data){
+        console.log('HELLO');
+        $("#temperature").html('Temp: ' + data.temperature)
+        $("#humidity").html('Humidity: ' + data.humidity)
+        $("#light-visible").html('Light-Vis: ' + data.visible)
+        $("#light-infrared").html('Light-Inf: '+ data.infrared)
+    });
+    $('.crossTop').mousedown('click', function() {
+        loopthis = setInterval(forward, 0);
+    }).mouseup(function () {
+        socket.emit('Stop','Done');
+        clearInterval(loopthis);
+    });
+    
+    $('.crossBottom').mousedown('click', function() {
+        loopthis = setInterval(backward, 0);
+    }).mouseup(function () {
+        socket.emit('Stop','Done');
+        clearInterval(loopthis);
+    });
+    $('.crossLeft').mousedown('click', function() {
+        socket.emit('Stop','Done');
+        loopthis = setInterval(left, 0);
+    }).mouseup(function () {
+        socket.emit('Stop','Done');
+        clearInterval(loopthis);
+    });
+    $('.crossRight').mousedown('click', function() {
+        loopthis = setInterval(right, 0);
+    }).mouseup(function () {
+        socket.emit('Stop','Done');
+        clearInterval(loopthis);
+    });
+    function forward(){
+        socket.emit('updateState','up');
+    }
+    function backward(){
+        socket.emit('updateState','down');
+    }
+    function left(){
+        socket.emit('updateState','left');
+    }
+    function right(){
+        socket.emit('updateState','right');
+    }
+    $(document).keydown(function(e) {
+    switch(e.which) {
+        case 37:
             socket.emit('updateState','left');
-        }
-        function right(){
-            console.log('right')
+            $(".crossLeft").css("background-color","blue");
+            break;
+        case 38: // up
+            socket.emit('updateState','up');
+            $(".crossTop").css("background-color","blue");
+            break;
+
+        case 39: // right
             socket.emit('updateState','right');
-        }
-        </script>
-    </body>
+            $(".crossRight").css("background-color","blue");
+            break;
+
+        case 40: // down
+            $(".crossBottom").css("background-color","blue");
+            socket.emit('updateState','right');
+            break;
+
+        default:
+            
+            socket.emit('Stop','Done');
+            
+    }
+    e.preventDefault();
+    });
+    $(document).keyup(function(e) {
+        $(".crossTop").css("background-color","#333333");
+        $(".crossBottom").css("background-color","#333333");
+        $(".crossLeft").css("background-color","#333333");
+        $(".crossRight").css("background-color","#333333");
+        e.preventDefault();
+    });
+
+    </script>
+</body>
 </html>
