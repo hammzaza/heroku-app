@@ -162,7 +162,7 @@
 
         case 40: // down
             $(".crossBottom").css("background-color","blue");
-            socket.emit('updateState','right');
+            socket.emit('updateState','down');
             break;
 
         default:
@@ -173,6 +173,7 @@
     e.preventDefault();
     });
     $(document).keyup(function(e) {
+        socket.emit('Stop','Done');
         $(".crossTop").css("background-color","#333333");
         $(".crossBottom").css("background-color","#333333");
         $(".crossLeft").css("background-color","#333333");
