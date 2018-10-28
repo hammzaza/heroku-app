@@ -4,7 +4,7 @@ module.exports = function(server){
         console.log('connected');
         socket.on('sensorData', function(data){
             console.log(data);
-            io.emit('Data',data);
+            io.emit('sensor',data);
         });
         socket.on('updateState',function(data){
             console.log(data)

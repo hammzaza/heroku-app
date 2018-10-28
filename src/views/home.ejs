@@ -99,12 +99,12 @@
     <script src="/socket.io/socket.io.js"></script>
     <script>
     var socket = io();
-    socket.on('Data',function(data){
+    socket.on('sensor',function(sensor){
         console.log('HELLO');
-        $("#temperature").html('Temp: ' + data.temperature)
-        $("#humidity").html('Humidity: ' + data.humidity)
-        $("#light-visible").html('Light-Vis: ' + data.visible)
-        $("#light-infrared").html('Light-Inf: '+ data.infrared)
+        $("#temperature").html('Temp: ' + sensor.temperature)
+        $("#humidity").html('Humidity: ' + sensor.humidity)
+        $("#light-visible").html('Light-Vis: ' + sensor.visible)
+        $("#light-infrared").html('Light-Inf: '+ sensor.infrared)
     });
     $('.crossTop').mousedown('click', function() {
         loopthis = setInterval(forward, 0);
