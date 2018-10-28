@@ -100,12 +100,10 @@
     <script>
     var socket = io();
     socket.on('sensor',function(sensor){
-        console.log(sensor);
-        console.log('HELLO');
         $("#temperature").html('Temp: ' + sensor.temperature)
         $("#humidity").html('Humidity: ' + sensor.humidity)
-        $("#light-visible").html('Light-Vis: ' + sensor.light-visible)
-        $("#light-infrared").html('Light-Inf: '+ sensor.light-infrared)
+        $("#light-visible").html('Light-Vis: ' + sensor.visible)
+        $("#light-infrared").html('Light-Inf: '+ sensor.infrared)
     });
     $('.crossTop').mousedown('click', function() {
         loopthis = setInterval(forward, 0);
