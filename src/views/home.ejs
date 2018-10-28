@@ -104,8 +104,8 @@
         console.log('HELLO');
         $("#temperature").html('Temp: ' + sensor.temperature)
         $("#humidity").html('Humidity: ' + sensor.humidity)
-        $("#light-visible").html('Light-Vis: ' + sensor.visible)
-        $("#light-infrared").html('Light-Inf: '+ sensor.infrared)
+        $("#light-visible").html('Light-Vis: ' + sensor.light-visible)
+        $("#light-infrared").html('Light-Inf: '+ sensor.light-infrared)
     });
     $('.crossTop').mousedown('click', function() {
         loopthis = setInterval(forward, 0);
