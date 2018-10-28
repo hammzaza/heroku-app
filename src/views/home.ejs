@@ -100,6 +100,7 @@
     <script>
     var socket = io();
     socket.on('sensor',function(sensor){
+        console.log(sensor);
         console.log('HELLO');
         $("#temperature").html('Temp: ' + sensor.temperature)
         $("#humidity").html('Humidity: ' + sensor.humidity)
