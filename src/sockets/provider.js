@@ -13,7 +13,6 @@ module.exports = function(server){
             sensorData.save(function(err) {
                 if (err)
                     throw err;
-                res.json({"message":"Succesfully done"});
             });
             io.emit('sensor',JSON.parse(data));
         });
