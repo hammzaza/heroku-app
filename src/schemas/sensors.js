@@ -1,6 +1,7 @@
 var mongoose = require('mongoose');
 
 var SensorSchema = mongoose.Schema({
+        location: String,
         temperature       : String,
         humidity        : String,
         visible        : String,

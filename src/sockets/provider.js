@@ -7,6 +7,7 @@ module.exports = function(server){
             sen= JSON.parse(data);
             console.log(sen);
             sensorData = new Sensor();
+            sensorData.location = 'indoor';
             sensorData.temperature = sen.temperature;
             sensorData.humidity = sen.humidity;
             sensorData.visible = sen.visible;
