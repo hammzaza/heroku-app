@@ -5,6 +5,7 @@ module.exports = function(server){
         console.log('connected');
         socket.on('sensorData', function(data){
             sen= JSON.parse(data);
+            console.log(sen);
             sensorData = new Sensor();
             sensorData.temperature = sen.temperature;
             sensorData.humidity = sen.humidity;
