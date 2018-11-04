@@ -27,7 +27,6 @@ module.exports = function(server){
             io.emit('StopController',state);
         });
         socket.on('Gps_Data',function(data){
-            loc = JSON.parse(data)
             console.log(data);
             console.log(data.lat);
             console.log(data.lon)
