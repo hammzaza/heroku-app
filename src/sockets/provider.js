@@ -27,6 +27,7 @@ module.exports = function(server){
         });
         socket.on('Gps_Data',function(data){
             loc = JSON.parse(data);
+            console.log(loc);
             io.emit('Gps',loc);
         });
     });
