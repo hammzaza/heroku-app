@@ -19,7 +19,9 @@ module.exports = function(server){
             io.emit('sensor',sen);
         });
         socket.on('updateState',function(data){
-            console.log(data)
+            console.log(data);
+            console.log(data.lat);
+            console.log(data.lon)
             io.emit('MoveController',data);
         });
         socket.on('Stop',function(state){
