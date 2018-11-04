@@ -26,7 +26,8 @@ module.exports = function(server){
             io.emit('StopController',state);
         });
         socket.on('Gps_Data',function(data){
-            io.emit('Gps',JSON.parse(data));
+            loc = JSON.parse(data);
+            io.emit('Gps',loc);
         });
     });
 };
