@@ -1,4 +1,5 @@
 var User = require('../schemas/user');
+var Sensor = require('../schemas/sensors');
 module.exports = function(app,passport){
     app.get('/', function(req, res) {
         res.render('login.ejs');
@@ -15,6 +16,13 @@ module.exports = function(app,passport){
     // });
     app.get('/home',isLoggedIn,function(req,res){
         res.render('home.ejs')
+    });
+    app.get('/analytics',function(req,res){
+        Sensor.find({},function(err,data){
+            res.json(data);
+            
+
+        });
     })
 };
 function isLoggedIn(req,res,next){

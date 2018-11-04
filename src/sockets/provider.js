@@ -15,7 +15,7 @@ module.exports = function(server){
             sensorData.save(function(err) {
                 if (err)
                     throw err;
-            });
+        });
             io.emit('sensor',sen);
         });
         socket.on('updateState',function(data){
@@ -24,6 +24,9 @@ module.exports = function(server){
         });
         socket.on('Stop',function(state){
             io.emit('StopController',state);
+        });
+        socket.on('Gps_Data',function(data){
+            io.emit('Gps',JSON.parse(data));
         });
     });
 };
