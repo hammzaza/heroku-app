@@ -99,6 +99,7 @@
         map.setView([data.lat,data.lon], 6);
         removemarker();
         cor  = [data.lat,data.lon];
+        console.log(cor);
         marker = tomtom.L.marker(cor, {
             icon: tomtom.L.icon({
                 iconUrl: 'sdk/images/circle-major.png',
