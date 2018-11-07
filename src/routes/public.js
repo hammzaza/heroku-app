@@ -23,9 +23,6 @@ module.exports = function(app,passport){
             
 
         });
-    })
-    app.get('/map',function(req,res){
-        res.render('tpl.ejs')
     });
 };
 function isLoggedIn(req,res,next){
