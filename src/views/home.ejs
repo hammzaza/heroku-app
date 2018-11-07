@@ -97,7 +97,7 @@
     check = false;
     socket.on('gpsData',function(data){
         map.setView([data.lat,data.lon]);
-        removemarker();
+        //removemarker();
         cor  = [data.lat,data.lon];
         console.log(cor);
         marker = tomtom.L.marker(cor, {
