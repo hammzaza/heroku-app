@@ -96,7 +96,7 @@
     var marker = null;
     check = false;
     socket.on('gpsData',function(data){
-        map.setView([data.lat,data.lon], 9);
+        map.setView([data.lat,data.lon]);
         removemarker();
         cor  = [data.lat,data.lon];
         console.log(cor);
