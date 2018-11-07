@@ -90,13 +90,13 @@
         key: 'YHLDaeRPeM2b14vMqHwZ8KGTfleX2kOz',
         basePath: 'sdk',
         center:[33,-118],
-        zoom:6
+        zoom:9
     });
     var cor;
     var marker = null;
     check = false;
     socket.on('gpsData',function(data){
-        map.setView([data.lat,data.lon], 6);
+        map.setView([data.lat,data.lon], 9);
         removemarker();
         cor  = [data.lat,data.lon];
         console.log(cor);
