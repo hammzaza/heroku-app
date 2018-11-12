@@ -17,6 +17,9 @@ module.exports = function(app,passport){
     app.get('/home',isLoggedIn,function(req,res){
         res.render('home.ejs')
     });
+    app.get('/data',function(req,res){
+        res.render('robotdata.ejs');
+    });
 };
 function isLoggedIn(req,res,next){
     if(req.isAuthenticated())
