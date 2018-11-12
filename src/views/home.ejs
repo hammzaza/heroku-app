@@ -1,5 +1,242 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="A front-end template that helps you build fast, modern mobile web apps.">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+    <title>Material Design Lite</title>
+
+    <!-- Add to homescreen for Chrome on Android -->
+    <meta name="mobile-web-app-capable" content="yes">
+
+    <!-- Add to homescreen for Safari on iOS -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="Material Design Lite">
+
+    <!-- Tile icon for Win8 (144x144 + tile color) -->
+    <meta name="msapplication-TileColor" content="#3372DF">
+
+    <!-- SEO: If your mobile URL is different from the desktop URL, add a canonical link to the desktop page https://developers.google.com/webmasters/smartphone-sites/feature-phones -->
+    <!--
+    <link rel="canonical" href="http://www.example.com/">
+    -->
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.cyan-light_blue.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/controller.css">
+    <link rel='stylesheet' type='text/css' href='sdk/map.css'/>
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <script src='sdk/tomtom.min.js'></script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    <style>
+    #view-source {
+      position: fixed;
+      display: block;
+      right: 0;
+      bottom: 0;
+      margin-right: 40px;
+      margin-bottom: 40px;
+      z-index: 900;
+    }
+    </style>
+  </head>
+  <body>
+        <div class="demo-layout mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header">
+            <header class="demo-header mdl-layout__header mdl-color--grey-100 mdl-color-text--grey-600">
+                <div class="mdl-layout__header-row">
+                    <span class="mdl-layout-title">Home</span>
+                    <div class="mdl-layout-spacer"></div>
+                    <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" id="hdrbtn">
+                        <i class="material-icons">more_vert</i>
+                    </button>
+                    <ul class="mdl-menu mdl-js-menu mdl-js-ripple-effect mdl-menu--bottom-right" for="hdrbtn">
+                        <li class="mdl-menu__item">Sign Out</li>
+                    </ul>
+                </div>
+            </header>
+            <div class="demo-drawer mdl-layout__drawer mdl-color--blue-grey-900 mdl-color-text--blue-grey-50">
+                <header class="demo-drawer-header">
+                    <div class="demo-avatar-dropdown">
+                        <span>Test User</span>
+                    </div>
+                </header>
+                <nav class="demo-navigation mdl-navigation">
+                    <a class="mdl-navigation__link" href="">Home</a>
+                    <a class="mdl-navigation__link" href="">Analytics</a>
+                </nav>
+            </div>
+        <main class="mdl-layout__content mdl-color--grey-100">
+            <div class="mdl-grid demo-content">
+                <center>
+                        <h4><b>SENSORS DATA</b></h4>
+                </center>
+                
+                <!-- Sensors Data -->
+                <div class="demo-charts mdl-color--white mdl-shadow--2dp mdl-cell mdl-cell--12-col mdl-grid">
+                        <svg fill="currentColor" height="100px" viewBox="0 0 1 1" class="demo-chart mdl-cell mdl-cell--4-col mdl-cell--4-col-desktop">
+                        <use xlink:href="#piechart" mask="url(#piemask)" />
+                        <text id="temperature" x="0.5" y="0.5" font-family="Roboto" font-size="0.3" fill="#888" text-anchor="middle" dy="0.1">82</text>
+                        </svg>
+                        <svg fill="currentColor" height="100px" viewBox="0 0 1 1" class="demo-chart mdl-cell mdl-cell--4-col mdl-cell--4-col-desktop">
+                        <use xlink:href="#piechart" mask="url(#piemask)" />
+                        <text id = "humidity" x="0.5" y="0.5" font-family="Roboto" font-size="0.3" fill="#888" text-anchor="middle" dy="0.1">82</text>
+                        </svg>
+                        <svg fill="currentColor" height="100px" viewBox="0 0 1 1" class="demo-chart mdl-cell mdl-cell--4-col mdl-cell--4-col-desktop">
+                        <use xlink:href="#piechart" mask="url(#piemask)" />
+                        <text id="light-visible" x="0.5" y="0.5" font-family="Roboto" font-size="0.3" fill="#888" text-anchor="middle" dy="0.1">82</text>
+                        </svg>
+                </div>
+                <div class="demo-charts mdl-color--white mdl-shadow--2dp mdl-cell mdl-cell--12-col mdl-grid">
+                        <div id ="map" style="height:300px;" class="mdl-cell mdl-cell--6-col mdl-cell--6-col-desktop">
+                        </div>
+                        <div style="height:300px;" class="mdl-cell mdl-cell--6-col mdl-cell--6-col-desktop">
+                                <div class=controller>
+                                        <div class=centerBlue>
+                                        </div>
+                                        <button type="button" style="height:20px;width:58px;background:black;color:white;" class="centerText">Analytics</button>
+                                        <div class=controllerLeft>
+                                            <div class=circle></div>
+                                            <div class=crossCenter>
+                                                <div class=crossTop></div>
+                                                <div class=crossBottom></div>
+                                                <div class=crossLeft></div>
+                                                <div class=crossRight></div>
+                                                <div class=crossCircle></div>
+                                            </div>
+                                        </div>
+                                        <div class=controllerRight>
+                                            <div class=backButton1Center>
+                                                <div class= cornerLeft1></div>
+                                                <div class= cornerRight1></div>
+                                            </div>
+                                            <div class=backButton2Center>
+                                                <div class= cornerLeft2></div>
+                                                <div class= cornerRight2></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                        </div>
+                </div>
+            </div>
+      </main>
+    </div>
+    <script src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+    var socket = io();
+    var map = tomtom.L.map('map', {
+        key: 'YHLDaeRPeM2b14vMqHwZ8KGTfleX2kOz',
+        basePath: 'sdk',
+        center:[33,-118],
+        zoom:9
+    });
+    var cor;
+    var marker = null;
+    check = false;
+    socket.on('gpsData',function(data){
+        map.setView([data.lat,data.lon]);
+        //removemarker();
+        cor  = [data.lat,data.lon];
+        console.log(cor);
+        marker = tomtom.L.marker(cor, {
+            icon: tomtom.L.icon({
+                iconUrl: 'sdk/images/circle-major.png',
+                iconSize: [10, 10],
+        })
+        }).addTo(map);
+    });
+    function removemarker(){
+        if(marker !=null){
+            map.removeLayer(marker);
+        }
+    }
+    $('.crossTop').mousedown('click', function() {
+        loopthis = setInterval(forward, 0);
+    }).mouseup(function () {
+        socket.emit('Stop','Done');
+        clearInterval(loopthis);
+    });
+    
+    $('.crossBottom').mousedown('click', function() {
+        loopthis = setInterval(backward, 0);
+    }).mouseup(function () {
+        socket.emit('Stop','Done');
+        clearInterval(loopthis);
+    });
+    $('.crossLeft').mousedown('click', function() {
+        socket.emit('Stop','Done');
+        loopthis = setInterval(left, 0);
+    }).mouseup(function () {
+        socket.emit('Stop','Done');
+        clearInterval(loopthis);
+    });
+    $('.crossRight').mousedown('click', function() {
+        loopthis = setInterval(right, 0);
+    }).mouseup(function () {
+        socket.emit('Stop','Done');
+        clearInterval(loopthis);
+    });
+    function forward(){
+        socket.emit('updateState','up');
+    }
+    function backward(){
+        socket.emit('updateState','down');
+    }
+    function left(){
+        socket.emit('updateState','left');
+    }
+    function right(){
+        socket.emit('updateState','right');
+    }
+    $(document).keydown(function(e) {
+    switch(e.which) {
+        case 37:
+            socket.emit('updateState','left');
+            $(".crossLeft").css("background-color","blue");
+            break;
+        case 38: // up
+            socket.emit('updateState','up');
+            $(".crossTop").css("background-color","blue");
+            break;
+
+        case 39: // right
+            socket.emit('updateState','right');
+            $(".crossRight").css("background-color","blue");
+            break;
+
+        case 40: // down
+            $(".crossBottom").css("background-color","blue");
+            socket.emit('updateState','down');
+            break;
+
+        default:
+            
+            socket.emit('Stop','Done');
+            
+    }
+    e.preventDefault();
+    });
+    $(document).keyup(function(e) {
+        socket.emit('Stop','Done');
+        $(".crossTop").css("background-color","#333333");
+        $(".crossBottom").css("background-color","#333333");
+        $(".crossLeft").css("background-color","#333333");
+        $(".crossRight").css("background-color","#333333");
+        e.preventDefault();
+    });
+
+    </script>
+  </body>
+</html>
+
+
+
+
+
+<!-- <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,17 +248,16 @@
     <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
     <script src='sdk/tomtom.min.js'></script>
     <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
     <title>Action Panel</title>
 </head>
 <body>
-      
-        <!-- Header Nav bar -->
         <header class="mdl-layout__header mdl-layout__header mdl-color--darkblue-100 mdl-color-text--black-800">
             <div class="mdl-layout__header-row">
               <span class="mdl-layout-title">Control Panel</span>
               <div class="mdl-layout-spacer"></div>
-              
+              <span class="mdl-layout"
             </div>
           </header>
 
@@ -30,59 +266,62 @@
         <center>
                 <h4><b>SENSORS DATA</b></h4>
         </center>
-        
-        <!-- Sensors Data -->
         <div class="demo-charts mdl-color--white mdl-shadow--2dp mdl-cell mdl-cell--12-col mdl-grid">
-                <svg fill="currentColor" width="50px" height="50px" viewBox="0 0 1 1" class="demo-chart mdl-cell mdl-cell--4-col mdl-cell--3-col-desktop">
+                <svg fill="currentColor" width="50px" height="50px" viewBox="0 0 1 1" class="demo-chart mdl-cell mdl-cell--4-col mdl-cell--4-col-desktop">
                   <use xlink:href="#piechart" mask="url(#piemask)" />
                   <text id="temperature" x="0.5" y="0.5" font-family="Roboto" font-size="0.3" fill="#888" text-anchor="middle" dy="0.1">82</text>
                 </svg>
-                <svg fill="currentColor" width="50px" height="50px" viewBox="0 0 1 1" class="demo-chart mdl-cell mdl-cell--4-col mdl-cell--3-col-desktop">
+                <svg fill="currentColor" width="50px" height="50px" viewBox="0 0 1 1" class="demo-chart mdl-cell mdl-cell--4-col mdl-cell--4-col-desktop">
                   <use xlink:href="#piechart" mask="url(#piemask)" />
                   <text id = "humidity" x="0.5" y="0.5" font-family="Roboto" font-size="0.3" fill="#888" text-anchor="middle" dy="0.1">82</text>
                 </svg>
-                <svg fill="currentColor" width="50px" height="50px" viewBox="0 0 1 1" class="demo-chart mdl-cell mdl-cell--4-col mdl-cell--3-col-desktop">
+                <svg fill="currentColor" width="50px" height="50px" viewBox="0 0 1 1" class="demo-chart mdl-cell mdl-cell--4-col mdl-cell--4-col-desktop">
                   <use xlink:href="#piechart" mask="url(#piemask)" />
                   <text id="light-visible" x="0.5" y="0.5" font-family="Roboto" font-size="0.3" fill="#888" text-anchor="middle" dy="0.1">82</text>
                 </svg>
-                <svg fill="currentColor" width="50px" height="50px" viewBox="0 0 1 1" class="demo-chart mdl-cell mdl-cell--4-col mdl-cell--3-col-desktop">
-                  <use xlink:href="#piechart" mask="url(#piemask)" />
-                  <text id="light-infrared" x="0.5" y="0.5" font-family="Roboto" font-size="0.3" fill="#888" text-anchor="middle" dy="0.1">82</text>
-                </svg>
         </div>
-    <div id='map' style='height:300px;width:400px'></div>
-    <div class=controller>
-        <div class=centerBlue>
-            <div class=centerLeft></div>   
-            <div class=centerRight></div>  
-        </div>
-        <div class=centerSelect>
-            <div class=SLeft></div>
-            <div class=SRight></div>
-        </div>
-        
-        <div class=controllerLeft>
-            <div class=circle></div>
-            <div class=crossCenter>
-                <div class=crossTop></div>
-                <div class=crossBottom></div>
-                <div class=crossLeft></div>
-                <div class=crossRight></div>
-                <div class=crossCircle></div>
+        <div class="row">
+            <div class="col-md-6">
+                <div id='map' style='height:300px;width:400px'></div>
+            </div>
+            <div class="col-md-6">
+                <div class=controller>
+                    <div class=centerBlue>
+                        <div class=centerLeft></div>   
+                        <div class=centerRight></div>  
+                    </div>
+                    <div class=controllerLeft>
+                        <div class=circle></div>
+                        <div class=crossCenter>
+                            <div class=crossTop></div>
+                            <div class=crossBottom></div>
+                            <div class=crossLeft></div>
+                            <div class=crossRight></div>
+                            <div class=crossCircle></div>
+                        </div>
+                    </div>
+                    <div class=controllerRight>
+                        <div class=backButton1Center>
+                            <div class= cornerLeft1></div>
+                            <div class= cornerRight1></div>
+                        </div>
+                        <div class=backButton2Center>
+                            <div class= cornerLeft2></div>
+                            <div class= cornerRight2></div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-        <div class=controllerRight>
-            <div class=backButton1Center>
-                <div class= cornerLeft1></div>
-                <div class= cornerRight1></div>
-            </div>
-            <div class=backButton2Center>
-                <div class= cornerLeft2></div>
-                <div class= cornerRight2></div>
-            </div>
+        <br>
+        <br>
+        <br>
+        <br>
+        <div class="container">
+                <center>
+                        <button type="button" class="btn btn-info btn-lg">Perform Analytics</button>
+                </center>
         </div>
-    </div>
-    <div id="map"></div>
     <script src="/socket.io/socket.io.js"></script>
     <script>
     var socket = io();
@@ -189,4 +428,4 @@
 
     </script>
 </body>
-</html>
+</html> -->

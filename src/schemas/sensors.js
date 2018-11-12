@@ -7,6 +7,4 @@ var SensorSchema = mongoose.Schema({
         visible        : String,
         infrared         : String,
 });
-
-
 module.exports = mongoose.model('Sensor', SensorSchema);
