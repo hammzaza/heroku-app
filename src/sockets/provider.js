@@ -4,7 +4,7 @@ module.exports = function(server){
     io.on('connection', function(socket){
         console.log('connected');
         socket.on('Start',function(condition){
-            io.emit('StartSensor','1');
+            io.emit('StopNode',true);
             if(condition){
                 
                 socket.on('sensorData', function(data){
@@ -36,7 +36,7 @@ module.exports = function(server){
                 });
             }
             else{
-                io.emit('StopController',false);
+                io.emit('StopNode',false);
                 io.emit('Stop','0');
             }        
         });
