@@ -12,21 +12,22 @@ module.exports = function(server){
             socket.on('sensorData', function(data){
                 io.emit('sensor',data);
                 console.log(data);
-                socket.on('Gps_Data',function(loc){
-                    console.log(data);
-                    console.log(loc.lat);
-                    console.log(loc.lon)
-                    io.emit('gpsData',data);
+                
+            });
+            socket.on('Gps_Data',function(loc){
+                console.log(data);
+                console.log(loc.lat);
+                console.log(loc.lon)
+                io.emit('gpsData',data);
 
-                    sens = new Sensor();
-                    sens.ppm =  parseFloat(data)
-                    sens.lat =  parseFloat(loc.lat);
-                    sens.lon =  parseFloat(loc.lon)
-                    sen.save(function(err) {
-                        if (err)
-                            throw err;
-                    });
-                });
+                // sens = new Sensor();
+                // sens.ppm =  parseFloat(data)
+                // sens.lat =  parseFloat(loc.lat);
+                // sens.lon =  parseFloat(loc.lon)
+                // sen.save(function(err) {
+                //     if (err)
+                //         throw err;
+                // });
             });
             socket.on('updateState',function(data){
                 console.log(data);
