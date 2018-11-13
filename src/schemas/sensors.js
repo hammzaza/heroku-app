@@ -1,14 +1,7 @@
 var mongoose = require('mongoose');
-var SchemaTypes = mongoose.Schema.Types;
 var SensorSchema = mongoose.Schema({
-        lat: {
-                type: SchemaTypes.Double
-            },
-        lon: {
-                type: SchemaTypes.Double
-        },
-        ppm: {
-                type: SchemaTypes.Double
-        }
+        lat: Number,
+        lon: Number,
+        ppm: Number
 });
 module.exports = mongoose.model('Sensor', SensorSchema);
