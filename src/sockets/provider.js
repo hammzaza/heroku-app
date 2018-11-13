@@ -30,11 +30,11 @@ module.exports = function(server){
                     io.emit('MoveController',data);
                 });
                 socket.on('Stop',function(state){
-                    io.emit('StopController',state);
+                    io.emit('StopController',false);
                 });
             }
             else{
-                io.emit('StopController',state);
+                io.emit('StopController',false);
                 io.emit('StopSensorData',false);
             }        
         });
