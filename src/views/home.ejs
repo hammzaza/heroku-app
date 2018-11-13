@@ -149,7 +149,7 @@
             $('#showrobotdata').show();
             socket.emit('Start',true);
             setTimeout(function() {
-                socket.emit('Stop',false);
+                socket.emit('stopsocket',false);
                 dialog.showModal();
         }, 10000);
     }

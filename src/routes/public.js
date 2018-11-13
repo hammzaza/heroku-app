@@ -14,7 +14,7 @@ module.exports = function(app,passport){
     //         res.json({"message":"Succesfully done"});
     //     });
     // });
-    app.get('/home',isLoggedIn,function(req,res){
+    app.get('/home',function(req,res){
         res.render('home.ejs')
     });
     app.get('/data',function(req,res){
