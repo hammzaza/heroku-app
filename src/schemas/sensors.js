@@ -1,10 +1,14 @@
 var mongoose = require('mongoose');
-
+var SchemaTypes = mongoose.Schema.Types;
 var SensorSchema = mongoose.Schema({
-        location: String,
-        temperature       : String,
-        humidity        : String,
-        visible        : String,
-        infrared         : String,
+        lat: {
+                type: SchemaTypes.Double
+            },
+        lon: {
+                type: SchemaTypes.Double
+        },
+        ppm: {
+                type: SchemaTypes.Double
+        }
 });
 module.exports = mongoose.model('Sensor', SensorSchema);
