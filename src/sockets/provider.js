@@ -35,7 +35,7 @@ module.exports = function(server){
             }
             else{
                 io.emit('StopController',false);
-                io.emit('StopSensorData',false);
+                io.emit('StopSensorData','false');
             }        
         });
     });
