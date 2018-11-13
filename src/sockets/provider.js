@@ -32,6 +32,9 @@ module.exports = function(server){
                 console.log(data);
                 io.emit('MoveController',data);
             });
+            socket.on('Stop',function(data){
+                io.emit('StopController',false);
+            });
             socket.on('stopsocket',function(state){
                 check = false;
                 console.log('you ended me');
