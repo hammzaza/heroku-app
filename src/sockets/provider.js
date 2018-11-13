@@ -4,7 +4,7 @@ module.exports = function(server){
     io.on('connection', function(socket){
         console.log('connected');
         socket.on('sensorData', function(data){
-                io.emit('sensor',sen);
+                io.emit('sensor',data);
                 console.log(data);
                 socket.on('Gps_Data',function(loc){
                     console.log(data);
@@ -18,7 +18,6 @@ module.exports = function(server){
                     sens.lon =  parseFloat(loc.lon)
     
                 });
-                io.emit('sensor',sen);
             });
             sen.save(function(err) {
                 if (err)
