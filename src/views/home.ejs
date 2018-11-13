@@ -151,7 +151,7 @@
             setTimeout(function() {
                 socket.emit('stopsocket',false);
                 dialog.showModal();
-        }, 10000);
+        }, 100000);
     }
     $('#buttontimeout').click(function(){
         location.href = '/data';
@@ -178,6 +178,9 @@
                 iconSize: [10, 10],
         })
         }).addTo(map);
+    });
+    socket.on('sensor',function(data){
+        console.log(data);
     });
     function removemarker(){
         if(marker !=null){
