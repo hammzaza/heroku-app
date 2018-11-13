@@ -4,8 +4,9 @@ module.exports = function(server){
     io.on('connection', function(socket){
         console.log('connected');
         socket.on('Start',function(condition){
+            io.emit('StartSensor','1');
             if(condition){
-                io.emit('StartSensor','1');
+                
                 socket.on('sensorData', function(data){
                     io.emit('sensor',data);
                     console.log(data);
