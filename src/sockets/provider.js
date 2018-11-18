@@ -13,14 +13,14 @@ module.exports = function(server){
         });
         socket.on('sensorData', function(data){
             if(check=true){
-                ppm.push(data);
+                ppm.add(data);
                 io.emit('sensor',data);
             }
         });
         socket.on('gpsd',function(loc){
             if(check == true){
                 setTimeout(function(){
-                    roboticdata.push(loc);
+                    roboticdata.add(loc);
                     io.emit('gpsData',loc);
                 },30000);
                 console.log(data);
