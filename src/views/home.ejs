@@ -148,13 +148,14 @@
             $('#buttonforstart').remove();
             $('#showrobotdata').show();
             socket.emit('Start',true);
-            setTimeout(function() {
-                socket.emit('stopsocket',false);
-                dialog.showModal();
-        }, 100000);
+                
     }
+    socket.on('timeup',function(data){
+        dialog.showModal();
+    });
     $('#buttontimeout').click(function(){
         location.href = '/data';
+        socket.emit('saveData',true);
     });
     
     
@@ -168,6 +169,7 @@
     var marker = null;
     check = false;
     socket.on('gpsData',function(data){
+        socket.emit('checkdata',true);
         map.setView([data.lat,data.lon]);
         //removemarker();
         cor  = [data.lat,data.lon];
@@ -180,6 +182,7 @@
         }).addTo(map);
     });
     socket.on('sensor',function(data){
+        socket.emit('checkdata',true);
         console.log(data);
     });
     function removemarker(){
