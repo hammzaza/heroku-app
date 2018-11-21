@@ -24,7 +24,7 @@ module.exports = function(server){
                 }
             }
         });
-        socket.on('gpsd',function(loc){
+        socket.on('Gps_Data',function(loc){
             console.log('gps')
             if(check == true){
                     if(roboticdata.length <10){
