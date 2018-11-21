@@ -15,9 +15,9 @@ module.exports = function(server){
         });
         socket.on('sensorData', function(data){
             console.log('sensor');
-            if(check=true){
+            if(check==true){
                 if(ppm.length <10){
-                    console.log(ppm);
+                    console.log(data);
                     io.emit('sensor',data);
                     ppm.push(parseInt(data));
                     
