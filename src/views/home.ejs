@@ -171,17 +171,18 @@
         //removemarker();
         cor  = [data.lat,data.lon];
         console.log(cor);
-        socket.emit('checkdata',true);
+        
         marker = tomtom.L.marker(cor, {
             icon: tomtom.L.icon({
                 iconUrl: 'sdk/images/circle-major.png',
                 iconSize: [10, 10],
-        })
+            })
         }).addTo(map);
+        socket.emit('checkdata',true);
     });
     socket.on('sensor',function(data){
-        socket.emit('checkdata',true);
         console.log(data);
+        socket.emit('checkdata',true);
     });
     function removemarker(){
         if(marker !=null){
