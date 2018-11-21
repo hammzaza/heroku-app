@@ -173,3 +173,6 @@
     box-sizing: border-box;
     align-items: center;
   }
+  .mdl-card {
+    overflow: visible !important;
+}

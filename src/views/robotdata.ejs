@@ -69,39 +69,109 @@
                     <a class="mdl-navigation__link" href="">Analytics</a>
                 </nav>
             </div>
-        <main class="mdl-layout__content mdl-color--grey-100">
-                <div style="height:300px;width:500px;" class="mdl-cell mdl-cell--6-col mdl-cell--6-col-desktop">
-                        <canvas id ="line-chart" style="height:300px;width:500px;"></canvas>
-                </div>
-            
-        </main>
-    </div>
+            <main class="mdl-layout__content mdl-color--grey-100">
+                <div class="mdl-grid demo-content">
+                    <div class="demo-graphs mdl-shadow--2dp mdl-color--white mdl-cell mdl-cell--8-col">
+                            <canvas id ="line-chart"></canvas>
+                    </div>
+                    <div class="demo-cards mdl-cell mdl-cell--4-col mdl-cell--8-col-tablet mdl-grid mdl-grid--no-spacing">
+                        <div class="demo-updates mdl-card mdl-shadow--2dp mdl-cell mdl-cell--4-col mdl-cell--4-col-tablet mdl-cell--12-col-desktop">
+                            <div class="mdl-card__title mdl-card--expand mdl-color--teal-300">
+                                <h2 class="mdl-card__title-text">Analytics</h2>
+                            </div>
+                            <div class="mdl-card__supporting-text mdl-color-text--grey-600">
+                                Select the previous gathered DataSets to perform Analysis
+                            </div>
+                            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                            <select class="mdl-textfield__input" id="selectedidanal" name="octane">
+                                <% for(var i = 0; i < avg.length -1; i ++){  if(avg[i].peakornot == 'Yes') var p = 'At Peak Hours'%>
+                                    <option value="<%=avg[i].avgid%>">(<%=avg[i].lat%>,<%=avg[i].lon%>) <%=p%></option>
+                                <% } %>
+                            </select>
+                            <label class="mdl-textfield__label" for="octane">Octane</label>
+                          </div>
+                            <div class="mdl-card__actions mdl-card--border">
+                                <button class="mdl-button mdl-js-button mdl-js-ripple-effect" onclick="generateanalysis();">Analytics</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>   
+            </main>
+        </div>
+        <input type='text' value='<%=avg[avg.length-1].lat%>' style="display:none;" id="lat"/>
+        <input type='text' value='<%=avg[avg.length-1].lon%>' style="display:none;" id="lon"/>
+        <input type='text' value='<%=avg.length%>' style="display:none;" id="avgmaxlength"/>
+        <input type='text' value='<%=avg[avg.length-1].peakornot%>' style="display:none;" id="peakornot"/>
     <script src="https://code.getmdl.io/1.3.0/material.min.js"></script>
     <script>
-        var lat; //average lat
-        var lon; //average lon
+        var ppm = [];
         $(document).ready(function(){
-            //call robot data and save it in variables
+            peak = '';
+            avglength = $('#avgmaxlength').val();
+            if($('#peakornot').val() == 'Yes')
+                peak='At Peak Hours';
+            ppm.push(0);
+            var lat; //average lat
+            var lon; //average lon
+            $.get("/sensorsData/" + avglength, function(data, status){
+                ppm = data.sensors;
+                new Chart(document.getElementById("line-chart"), {
+                    type: 'line',
+                    data: {
+                        labels: [0,30,60,90,120,150,180,210,240,270,300],
+                        datasets: [{ 
+                            data: data.sensors, 
+                            label: "Your Data", //display realtime ppm.
+                            borderColor: "#3e95cd",
+                            fill: false
+                            }
+                        ],
+
+                    },
+                    options: {
+                        title: {
+                            display: true,
+                            text: 'Robotic Data at (Lat/Lon) (' + $('#lat').val() + ','+ $('#lon').val() +') for approximately 5 minutes'
+                        }
+                    }
+                });
+            });
         });
-        new Chart(document.getElementById("line-chart"), {
-            type: 'line',
-            data: {
-                labels: [1,30,60,90,120,150,180,210,240,270,300],
-                datasets: [{ 
-                    data: [60,70,80,60,50,150,70,120,50,100,80], 
-                    label: "PPM", //display realtime ppm.
-                    borderColor: "#3e95cd",
-                    fill: false
-                }
-                ]
-                },
-            options: {
-                title: {
-                display: true,
-                text: 'Robotic Data at (Lat/Lon) (x,y) for 5 minutes'
-                }
-            }
-        });
+        function generateanalysis(){
+            $('#comparisonchart').show();
+            avgid = $('#selectedidanal').val();
+            $.get("/getAnalytical/" + avgid, function(data, status){
+                console.log('hello')
+                //console.log(data.sensor);
+                new Chart(document.getElementById("line-chart"), {
+                    type: 'line',
+                    data: {
+                        labels: [0,30,60,90,120,150,180,210,240,270,300],
+                        datasets: [
+                            { 
+                            data: ppm, 
+                            label: "Your Data " + peak, //display realtime ppm.
+                            borderColor: "#3e95cd",
+                            fill: false
+                            },{
+                            
+                            data: data.sensor, 
+                            label: "Gathered Data", //display realtime ppm.
+                            borderColor: "red",
+                            fill: false
+                            },
+                        ],
+                    },
+                    options: {
+                        title: {
+                            display: true,
+                            text: 'Data Comparison'
+                        }
+                    }
+                });
+            });
+        }
+        
     </script>
   </body>
       
