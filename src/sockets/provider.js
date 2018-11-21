@@ -14,17 +14,16 @@ module.exports = function(server){
 		    io.emit('startnode',false);
         });
         socket.on('sensorData', function(data){
-            console.log('sensor');
             if(check==true){
                 if(ppm.length <10){
-                    console.log(data);
+                    console.log('ppm',data);
                     io.emit('sensor',data);
                     ppm.push(parseInt(data));
                     
                 }
             }
         });
-        socket.on('locationdata',function(loc){
+        io.on('locationdata',function(loc){
             console.log('gps')
             if(check == true){
                     if(roboticdata.length <10){
