@@ -30,7 +30,7 @@ module.exports = function(server){
                         console.log(loc);
                         lat = parseInt(loc.lat);
                         lon = parseInt(loc.lon);
-                        io.emit('gpsData',loc);
+                        io.emit('gps_data',loc);
                         roboticdata.push({'lat':lat,'lon':lon});
                     }
             }
