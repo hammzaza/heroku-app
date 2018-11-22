@@ -23,7 +23,10 @@ module.exports = function(server){
                 }
             }
         });
-        io.on('locationdata',function(loc){
+        socket.on('hello_world',function(msg){
+            console.log(msg)
+        })
+        socket.on('send_loc',function(loc){
             console.log('gps')
             if(check == true){
                     if(roboticdata.length <10){
