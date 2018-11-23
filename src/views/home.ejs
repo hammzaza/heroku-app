@@ -85,15 +85,15 @@
                 <div class="demo-charts mdl-color--white mdl-shadow--2dp mdl-cell mdl-cell--12-col mdl-grid">
                         <svg fill="currentColor" height="100px" viewBox="0 0 1 1" class="demo-chart mdl-cell mdl-cell--4-col mdl-cell--4-col-desktop">
                         <use xlink:href="#piechart" mask="url(#piemask)" />
-                        <text id="temperature" x="0.5" y="0.5" font-family="Roboto" font-size="0.3" fill="#888" text-anchor="middle" dy="0.1">82</text>
+                        <text id="ppm" x="0.5" y="0.5" font-family="Roboto" font-size="0.3" fill="#888" text-anchor="middle" dy="0.1">82</text>
                         </svg>
                         <svg fill="currentColor" height="100px" viewBox="0 0 1 1" class="demo-chart mdl-cell mdl-cell--4-col mdl-cell--4-col-desktop">
                         <use xlink:href="#piechart" mask="url(#piemask)" />
-                        <text id = "humidity" x="0.5" y="0.5" font-family="Roboto" font-size="0.3" fill="#888" text-anchor="middle" dy="0.1">82</text>
+                        <text id = "lat" x="0.5" y="0.5" font-family="Roboto" font-size="0.3" fill="#888" text-anchor="middle" dy="0.1">82</text>
                         </svg>
                         <svg fill="currentColor" height="100px" viewBox="0 0 1 1" class="demo-chart mdl-cell mdl-cell--4-col mdl-cell--4-col-desktop">
                         <use xlink:href="#piechart" mask="url(#piemask)" />
-                        <text id="light-visible" x="0.5" y="0.5" font-family="Roboto" font-size="0.3" fill="#888" text-anchor="middle" dy="0.1">82</text>
+                        <text id="lon" x="0.5" y="0.5" font-family="Roboto" font-size="0.3" fill="#888" text-anchor="middle" dy="0.1">82</text>
                         </svg>
                 </div>
                 <div class="demo-charts mdl-color--white mdl-shadow--2dp mdl-cell mdl-cell--12-col mdl-grid">
@@ -168,6 +168,8 @@
     var marker = null;
     check = false;
     socket.on('gps_data',function(data){
+        $('#lat').html(data.lat);
+        $('#lon').html(data.lon)
         map.setView([data.lat,data.lon]);
         //removemarker();
         cor  = [data.lat,data.lon];
@@ -184,6 +186,7 @@
     });
     socket.on('sensor',function(data){
         console.log(data);
+        $('#ppm').html(data);
         socket.emit('checkdata',true);
     });
     function removemarker(){
