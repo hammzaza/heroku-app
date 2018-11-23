@@ -12,6 +12,12 @@ module.exports = function(app,passport){
             res.json({'sensors':ppm});
         });
     });
+    app.get('/historicalData',function(req,res){
+        Avg.find({},function(err,results){
+            if(err) throw err;
+            res.json({'sensors':results})
+        })
+    });
 };
 function isLoggedIn(req,res,next){
     if(req.isAuthenticated())

@@ -23,6 +23,9 @@ module.exports = function(app,passport){
             res.json({'sensor':ppm});
         });
     });
+    app.get('/historical',function(req,res){
+        res.render('historical.ejs');
+    });
 };
 function isLoggedIn(req,res,next){
     if(req.isAuthenticated())

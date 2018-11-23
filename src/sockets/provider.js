@@ -27,6 +27,7 @@ module.exports = function(server){
             console.log(msg)
         })
         socket.on('send_loc',function(loc){
+            
             if(check == true){
                     if(roboticdata.length <10){
                         console.log(loc);
