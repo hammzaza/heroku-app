@@ -34,8 +34,8 @@ module.exports = function(server){
                     console.log('hello');
                     if(roboticdata.length <10){
                         console.log('atloc',loc);
-                        lat = parseInt(loc.lat);
-                        lon = parseInt(loc.lon);
+                        lat = parseFloat(loc.lat);
+                        lon = parseFloat(loc.lon);
                         io.emit('gps_data',loc);
                         console.log(lat)
                         console.log(lon)
@@ -105,7 +105,7 @@ function averagelatlon(list){
         lon +=list[i].lon;
     }
     return {
-        'lat':lat,
-        'lon':lon
+        'lat':lat/list.length,
+        'lon':lon/list.length
     };
 }
