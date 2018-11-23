@@ -27,7 +27,7 @@ module.exports = function(server){
             console.log(msg)
         })
         socket.on('send_loc',function(loc){
-
+            console.log('at gps')
             if(check == true){
                     console.log('hello');
                     if(roboticdata.length <10){
@@ -35,6 +35,8 @@ module.exports = function(server){
                         lat = parseInt(loc.lat);
                         lon = parseInt(loc.lon);
                         io.emit('gps_data',loc);
+                        console.log(lat)
+                        console.log(lon)
                         roboticdata.push({'lat':lat,'lon':lon});
                     }
             }
