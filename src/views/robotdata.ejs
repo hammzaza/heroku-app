@@ -114,6 +114,7 @@
             var lat; //average lat
             var lon; //average lon
             $.get("/sensorsData/" + avglength, function(data, status){
+                console.log(data.sensors)
                 ppm = data.sensors;
                 new Chart(document.getElementById("line-chart"), {
                     type: 'line',
@@ -126,7 +127,6 @@
                             fill: false
                             }
                         ],
-
                     },
                     options: {
                         title: {
