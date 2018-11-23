@@ -3,9 +3,9 @@ var Avg = require('../schemas/avgsen');
 var check = false;
 var async = require('async');
 roboticdata = [];
-ppm = [];
+ppms = [];
 console.log(roboticdata)
-console.log(ppm)
+console.log(ppms)
 module.exports = function(server){
 
     var io = require('socket.io').listen(server);
@@ -17,10 +17,10 @@ module.exports = function(server){
         socket.on('sensorData', function(data){
             console.log(typeof(data))
             if(check==true){
-                if(ppm.length <10){
-                    console.log('PPM: ', data);
+                if(ppms.length <10){
+                    console.log('ppms: ', data);
                     io.emit('sensor',data);
-                    ppm.push(parseFloat(data));
+                    ppms.push(parseFloat(data));
                 }
             }
         });
@@ -44,10 +44,10 @@ module.exports = function(server){
         socket.on('checkdata',function(data){
             if(roboticdata.length == 10){
             }
-            if(ppm.length == 10){
-                console.log(ppm)
+            if(ppms.length == 10){
+                console.log(ppms)
             }    
-            if(roboticdata.length == 10 && ppm.length == 10){
+            if(roboticdata.length == 10 && ppms.length == 10){
                 socket.emit('timeup');
                 check = false;
                 var d = new Date();
@@ -57,7 +57,7 @@ module.exports = function(server){
                 if(n == 8 || n == 9 || n == 17 || n==18)
                     peakornot = 'Yes';
                 avglocation = averagelatlon(roboticdata);
-                avgppm = averageppm(ppm);
+                avgppm = averageppm(ppms);
                 avg.ppm = averageppm(avgppm);
                 avg.lat = avglocation.lat;
                 avg.lon = avglocation.lon;
@@ -72,7 +72,7 @@ module.exports = function(server){
                         sen.lat = roboticdata[i].lat;
                         sen.lon = roboticdata[i].lon;
                         sen.avgid = (avglength+1);
-                        sen.ppm = ppm[i];
+                        sen.ppm = ppms[i];
                         sen.peak = peakornot;
                         sen.save();
                     }
