@@ -10,7 +10,6 @@ module.exports = function(server){
 
     var io = require('socket.io').listen(server);
     io.on('connection', function(socket){
-        console.log('connected');
         socket.on('Start',function(condition){
             check = true;
 		    io.emit('startnode',false);
@@ -18,10 +17,8 @@ module.exports = function(server){
         socket.on('sensorData', function(data){
             if(check==true){
                 if(ppm.length <10){
-                    console.log('ppm',data);
                     io.emit('sensor',data);
-                    ppm.push(parseInt(data));
-                    
+                    ppm.push(parseFloat(data));
                 }
             }
         });
@@ -29,16 +26,12 @@ module.exports = function(server){
             console.log(msg)
         })
         socket.on('send_loc',function(loc){
-            console.log('at gps')
             if(check == true){
                     console.log('hello');
                     if(roboticdata.length <10){
-                        console.log('atloc',loc);
                         lat = parseFloat(loc.lat);
                         lon = parseFloat(loc.lon);
                         io.emit('gps_data',loc);
-                        console.log(lat)
-                        console.log(lon)
                         roboticdata.push({'lat':lat,'lon':lon});
                     }
             }
@@ -48,10 +41,8 @@ module.exports = function(server){
         });
         socket.on('checkdata',function(data){
             if(roboticdata.length == 10){
-                console.log(roboticdata);
             }
             if(ppm.length == 10){
-                console.log(ppm);
             }    
             if(roboticdata.length == 10 && ppm.length == 10){
                 socket.emit('timeup');
@@ -72,6 +63,7 @@ module.exports = function(server){
                     avg.avgid = (avglength+1);
                     avg.save();
                     for(var i = 0 ; i < roboticdata.length; i ++){
+                        console.log(ppm[i]);
                         sen = new Sensor();
                         sen.lat = roboticdata[i].lat;
                         sen.lon = roboticdata[i].lon;
