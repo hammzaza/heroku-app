@@ -4,6 +4,8 @@ var check = false;
 var async = require('async');
 roboticdata = [];
 ppm = [];
+console.log(roboticdata)
+console.log(ppm)
 module.exports = function(server){
 
     var io = require('socket.io').listen(server);
@@ -53,6 +55,7 @@ module.exports = function(server){
             }    
             if(roboticdata.length == 10 && ppm.length == 10){
                 socket.emit('timeup');
+                check = false;
                 var d = new Date();
                 var n = d.getHours();
                 avg = new Avg();
@@ -78,6 +81,7 @@ module.exports = function(server){
                         sen.save();
                     }
                 });
+
             }
         });
         socket.on('Stop',function(data){
