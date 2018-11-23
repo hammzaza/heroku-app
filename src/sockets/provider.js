@@ -45,6 +45,7 @@ module.exports = function(server){
             if(roboticdata.length == 10){
             }
             if(ppm.length == 10){
+                console.log(ppm)
             }    
             if(roboticdata.length == 10 && ppm.length == 10){
                 socket.emit('timeup');
@@ -56,7 +57,8 @@ module.exports = function(server){
                 if(n == 8 || n == 9 || n == 17 || n==18)
                     peakornot = 'Yes';
                 avglocation = averagelatlon(roboticdata);
-                avg.ppm = averageppm(ppm);
+                avgppm = averageppm(ppm);
+                avg.ppm = averageppm(avgppm);
                 avg.lat = avglocation.lat;
                 avg.lon = avglocation.lon;
                 avg.date = d;
