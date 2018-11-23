@@ -15,6 +15,7 @@ module.exports = function(server){
 		    io.emit('startnode',false);
         });
         socket.on('sensorData', function(data){
+            console.log(typeof(data))
             if(check==true){
                 if(ppm.length <10){
                     io.emit('sensor',data);
@@ -62,7 +63,7 @@ module.exports = function(server){
                 Avg.count({},function(err,avglength){
                     avg.avgid = (avglength+1);
                     avg.save();
-                    for(var i = 0 ; i < roboticdata.length; i ++){
+                    for(var i = 0 ; i < roboticdata.length; i++){
                         console.log(ppm[i]);
                         sen = new Sensor();
                         sen.lat = roboticdata[i].lat;
