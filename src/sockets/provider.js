@@ -18,6 +18,7 @@ module.exports = function(server){
             console.log(typeof(data))
             if(check==true){
                 if(ppm.length <10){
+                    console.log('PPM: ', data);
                     io.emit('sensor',data);
                     ppm.push(parseFloat(data));
                 }
