@@ -85,19 +85,6 @@
                         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                             <tr>
                                     <tr><td>Select Sensors on the Robot</td></tr>
-                                    <div id="tempsen" style="display:none">
-                                        <td>
-                                            <label class = "mdl-checkbox mdl-js-checkbox" for = "checkbox1">
-                                                <input type = "checkbox" id="checkbox1" class = "mdl-checkbox__input">
-                                                <span class = "mdl-checkbox__label">Temp</span>
-                                            </label>
-                                            <label class = "mdl-checkbox mdl-js-checkbox" for = "checkbox2">
-                                                <input type = "checkbox" id="checkbox2" class = "mdl-checkbox__input">
-                                                <span class = "mdl-checkbox__label">Humidity</span>
-                                            </label>
-                                        </td>
-                                    </div>
-                                    
                                     <div id="cosen" style="display:none">
                                         <td>
                                             <label class = "mdl-checkbox mdl-js-checkbox" for = "checkbox3">
@@ -109,22 +96,6 @@
                                 </tr>
                         </div>
                         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                            <div id="temran" style="display:none">
-                                <td>
-                                    <label class = "mdl-textfield mdl-js-textfield">
-                                        <span class = "mdl-textfield__label">Select Range Temp</span>
-                                        <input type="number" id="rantemp" value="-1" class="mdl-textfield__input" style='color:black;'>
-                                    </label>
-                                </td>
-                            </div>
-                            <div id="humran" style="display:none;">
-                                <td>
-                                    <label class = "mdl-textfield mdl-js-textfield">
-                                        <span class = "mdl-textfield__label">Select Range Humidity</span>
-                                        <input type="number" id="ranhum" value="-1"  class="mdl-textfield__input">
-                                    </label>
-                                </td>
-                            </div>
                             <div id="coran" style="display:none">
                                 <td>
                                     <label class = "mdl-textfield mdl-js-textfield">
@@ -213,38 +184,13 @@
         id = $(this).val();
         $.get("/robotget/"+id, function(data, status){
             r = data.robot[0];
-            if(r.dht){
-                console.log('hello')
-                $('#tempsen').show();
-            }
             if(r.mq)
                 $('#cosen').show();
         });
+        
     });
-    var check1 = false;
-    var check2 = false;
     var check3 = false;
-    var temprange = 0;
-    var humrange = 0;
     var corange = 0;
-    $("#checkbox1").change(function(){
-        console.log(temprange)
-        check1 = !check1;
-        if(check1)
-            $('#temran').show();
-        else
-            $('#temran').hide();
-    });
-    $("#checkbox2").change(function(){
-        
-        check2 = !check2;
-        console.log('check2')
-        if(check2)
-            $('#humran').show();
-        else
-            $('#humran').hide();
-        
-    });
     $("#checkbox3").change(function(){
         check3 = !check3;
         console.log('check3')
@@ -253,20 +199,14 @@
         else
             $('#coran').hide();
     });
-
     var dialog = document.querySelector('dialog');
     var socket = io();
     start = false;
     
     function starttime(){
             start=true;
-            if(parseInt($('#rantemp').val() != -1))
-                temprange = parseInt($('#rantemp').val());
-            if(parseInt($('#ranhum').val() != -1))
-                temprange = parseInt($('#ranhum').val());
             if(parseInt($('#ranco').val() != -1))
-                temprange = parseInt($('#ranco').val());
-            
+                corange = parseInt($('#ranco').val());
             $('#buttonforstart').remove();
             $('#showrobotdata').show();
             socket.emit('availablerobot',id);
@@ -306,12 +246,11 @@
         
         socket.emit('checkdata',true);
     });
-    //temprange;
-    //humrange;
-    //corange;
     socket.on('sensor',function(data){
-        if(temprange < data.temp && humrange < data.hum && corange <data.ppm )
+        if(temprange < data.temp){
             socket.emit('userlog',data);
+            socket.emit('setrange',corange);
+        }
         $('#ppm').html(data);
         socket.emit('checkdata',true);
     });
@@ -392,7 +331,6 @@
     });
     $(document).keyup(function(e) {
         if(start){
-        console.log('stop');
         socket.emit('Stop','Done');
         $(".crossTop").css("background-color","#333333");
         $(".crossBottom").css("background-color","#333333");

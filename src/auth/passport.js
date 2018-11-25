@@ -1,11 +1,5 @@
 var LocalStrategy   = require('passport-local').Strategy;
-var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy; 
-// load up the user model
 var User            = require('../schemas/user');
-
-var configAuth = require('../config/google-config');
-
-
 module.exports = function(passport) {
     passport.serializeUser(function(user, done) {
         done(null, user.id);
@@ -23,7 +17,7 @@ module.exports = function(passport) {
         passReqToCallback : true
     },
     function(req, username, password, done) {
-        User.findOne({ 'local.username' :  username }, function(err, user) {
+        User.findOne({ 'username' :  username }, function(err, user) {
             console.log(user);
             if (err)
                 return done(err);
@@ -33,43 +27,46 @@ module.exports = function(passport) {
 
             if (!user.validPassword(password))
                 return done(null, false);
-
             return done(null, user);
         });
 
     }));
-    //////gooogle//////
-    passport.use(new GoogleStrategy({
-    clientID: configAuth.clientID,
-    clientSecret: configAuth.clientsecret,
-    callbackURL: configAuth.callbackURL,
-    profileFields: ['id', 'displayName', 'link', 'photos', 'email']
-  },
-  function(accesstoken, refreshToken, profile, done) {
-    process.nextTick(function(){
-    User.findOne({'google.userid': profile.id},function(err,user){
-        if(err)
-            return done(err);
-        if(user)
-            return done(null,user);
-        else
-            {
-                var newuser = new User();
-                newuser.google.userid = profile.id;
-                newuser.google.token = accesstoken;
-                newuser.google.name = profile.displayName;
-                newuser.google.email = profile.emails[0].value;
-                newuser.save(function(err){
-                   if(err)
-                       throw err;
-                    return done(null,newuser);
-                });
-                
-            }
+    //////sign--------up//////
+    passport.use('sign-up', new LocalStrategy({
+        // by default, local strategy uses username and password, we will override with email
+        usernameField : 'username',
+        passwordField : 'password',
+        passReqToCallback : true // allows us to pass back the entire request to the callback
+    },
+    function(req, username, password, done) {
+        console.log(username)
+        console.log(password)
+        // asynchronous
+        // User.findOne wont fire unless data is sent back
+        process.nextTick(function() {
+
+        // find a user whose email is the same as the forms email
+        // we are checking to see if the user trying to login already exists
+        User.findOne({ 'username' :  username }, function(err, user) {
+            // if there are any errors, return the error
+            if (err)
+                return done(err);
+
+                // if there is no user with that email
+                // create the user
+            var newUser            = new User();
+            newUser.username    = username;
+            newUser.password = password;
+            // save the user
+            newUser.save(function(err) {
+                if (err)
+                    throw err;
+                return done(null, null);
+            });
         });    
-    });
-                     
-}
-));
+
+        });
+
+    }));
 
 };

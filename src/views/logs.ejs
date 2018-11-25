@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="description" content="A front-end template that helps you build fast, modern mobile web apps.">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
-    <title>Historical Data</title>
+    <title>Logs</title>
 
     <!-- Add to homescreen for Chrome on Android -->
     <meta name="mobile-web-app-capable" content="yes">
@@ -48,7 +48,7 @@
         <div class="demo-layout mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header">
             <header class="demo-header mdl-layout__header mdl-color--grey-100 mdl-color-text--grey-600">
                 <div class="mdl-layout__header-row">
-                    <span class="mdl-layout-title">Real Time Data Analytics</span>
+                    <span class="mdl-layout-title">User Logs</span>
                     <div class="mdl-layout-spacer"></div>
                     <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" id="hdrbtn">
                         <i class="material-icons">more_vert</i>
@@ -67,42 +67,36 @@
             </div>
             <main class="mdl-layout__content">
                 <div class="mdl-grid demo-content">
-                        <div style ="width:600px;" class="demo-charts mdl-color--white mdl-shadow--2dp mdl-cell mdl-cell--12-col mdl-grid">
-                                <div class="mdl-cell mdl-cell--12-col mdl-cell--12-col-desktop">
-                                    <div style="height:300px" id="map"></div>
-                                </div>
+                        <div class="demo-charts mdl-color--white mdl-shadow--2dp mdl-cell mdl-cell--12-col mdl-grid">
+                                <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
+                                        <thead>
+                                                <!-- lat: Number,
+                                                lon: Number,
+                                                ppm:Number,
+                                                userid:String,
+                                                range:Number -->
+                                          <tr>
+                                            <!-- class "mdl-data-table__cell--non-numeric", align values to left -->
+                                            <th style="width:250px;">Latitude</th>
+                                            <th style="width:250px;">Longtitude</th>
+                                            <th style="width:250px;">Concentration</th>
+                                            <th style="width:250px;">Range that was set</th>
+                                          </tr>
+                                        </thead>
+                                        <tbody>
+                                          <tr>
+                                            <td style="width:250px;">32</td>
+                                            <td style="width:250px;">72</td>
+                                            <td style="width:250px;">52</td>
+                                            <td style="width:250px;">50</td>
+                                          </tr>
+                                          
+                                        </tbody>
+                                      </table>
                         </div>
                 </div>   
             </main>
         </div>
-        <script>
-            $.get("/historicalData", function(sensorData, status){
-                var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May','June','July','Aug','Sep','Oct','Nov','Dec'];
-                var map = tomtom.L.map('map', {
-                key: 'YHLDaeRPeM2b14vMqHwZ8KGTfleX2kOz',
-                basePath: 'sdk',
-                center:[32,72],
-                zoom:3
-                });
-                map.setView([32,72]);
-                sensor = sensorData.sensors;
-                for(var i = 0 ; i < sensor.length;i++){
-                    date = new Date(sensor[i].date);
-                    tomtom.L.marker([sensor[i].lat,sensor[i].lon], {
-                    icon: tomtom.L.icon({
-                        iconUrl: 'sdk/images/circle-major.png',
-                        iconSize: [5, 5],
-                    })
-                }).addTo(map).bindPopup(`
-                <b>Gathered Data at Date: ` + date.getDay() + `-` + months[date.getMonth()] + `-` + date.getFullYear()  +`</b><br/>
-                (Lat,Lon) : (` + sensor[i].lat + `,` + sensor[i].lon + `)<br/>
-                Peak Hours : ` + sensor[i].peakornot +  `<br/>
-                CO and flammable Gasses Concenteration: ` + sensor[i].ppm + `<br/>
-                `);
-                }
-            });
-            
-        </script>
   </body>
       
 </html>

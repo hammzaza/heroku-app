@@ -3,10 +3,11 @@ module.exports = function(app, passport) {
             successRedirect : '/home',
             failureRedirect : '/'
         }));
-        app.get('/auth/google', passport.authenticate('google',{scope: ['email']}));
-        app.get('/auth/google/callback',
-        passport.authenticate('google', { successRedirect: '/home',
-                                      failureRedirect: '/' }));
+        app.post('/sign-up', passport.authenticate('sign-up', {
+            successRedirect : '/',
+            failureRedirect : '/',
+            failureFlash : true
+        }));
         app.get('/logout', function(req, res) {
             req.logout();
             res.redirect('/');

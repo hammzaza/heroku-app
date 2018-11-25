@@ -24,8 +24,11 @@ var configDB = require('./src/config/mongodb');
 mongoose.connect(configDB);
 require('./src/auth/auth')(app,passport);
 require('./src/auth/passport')(passport);
-require('./src/routes/public')(app);
+require('./src/routes/public')(app,passport);
 require('./src/routes/roboticdata')(app,passport);
+require('./src/routes/robot')(app,passport);
+require('./src/routes/robot')(app,passport);
+require('./src/routes/logs')(app,passport);
 var server = app.listen(port, function(){
     console.log("Listening on port "+ port);
 });

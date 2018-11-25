@@ -1,11 +1,11 @@
 var Sensor = require('../schemas/sensors');
 var Avg = require('../schemas/avgsen');
 var check = false;
-var async = require('async');
-roboticdata = [];
-ppms = [];
-userlog = [];
-var id = -1;
+var roboticdata = [];
+var ppms = [];
+var userlog = [];
+var range = 0;
+var UserLog = require('../schemas/userlog');
 module.exports = function(server){
 
     var io = require('socket.io').listen(server);
@@ -27,9 +27,8 @@ module.exports = function(server){
         socket.on('userlog',function(data){
             userlog.push(data);
         })
-
-        socket.on('availablerobot',function(data){
-            id = data;
+        socket.on('setrange',function(data){
+            range = data;
         })
         socket.on('hello_world',function(msg){
             console.log(msg)
@@ -74,13 +73,13 @@ module.exports = function(server){
                     avg.avgid = (avglength+1);
                     avg.save();
                     for(var i = 0 ; i < roboticdata.length; i++){
-        //                 lat: Number,
-        // lon: Number,
-        // ppm: Number,
-        // hum:Number,
-        // temp:Number,
-        // userid:String
                         console.log(ppm[i]);
+                        userlog = new UserLog();
+                        userlog.userid = req.user.username;
+                        userlog.lat = roboticdata[i].lat;
+                        userlog.lon = roboticdata[i].lon;
+                        userlog.range = range;
+                        userlog.ppm = ppm[i];
                         sen = new Sensor();
                         sen.lat = roboticdata[i].lat;
                         sen.lon = roboticdata[i].lon;
@@ -88,9 +87,14 @@ module.exports = function(server){
                         sen.ppm = ppms[i];
                         sen.peak = peakornot;
                         sen.save();
+                        userlog.save();
+                        if(i ==9){
+                            roboticdata = [];
+                            ppms = [];
+                            userlogs = [];
+                        }
                     }
                 });
-
             }
         });
         socket.on('Stop',function(data){
