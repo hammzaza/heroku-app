@@ -65,12 +65,6 @@
                                 <form action="/register-robot" method="POST">     
                                         <tr>
                                             <tr><td>Select Sensors on the Robot</td></tr>
-                                            <td> 
-                                               <label class = "mdl-checkbox mdl-js-checkbox" for = "checkbox1">
-                                                  <input type = "checkbox" id = "checkbox1" class = "mdl-checkbox__input">
-                                                  <span class = "mdl-checkbox__label">DHT11(Temp & Humidity)</span>
-                                               </label>
-                                            </td>
                                             <td>
                                                <label class = "mdl-checkbox mdl-js-checkbox" for = "checkbox3">
                                                   <input type = "checkbox" id = "checkbox3" class = "mdl-checkbox__input">
@@ -95,14 +89,6 @@
         <script>
             var i = 0;
             var o = 0;
-            $("#checkbox1").change(function(){
-                if($('#checkbox1').is(':checked')) { 
-                    i++;
-                } 
-                else{
-                    i--;
-                }
-            });
             $("#checkbox3").change(function(){
                 if($('#checkbox3').is(':checked')) { 
                     o++;
@@ -112,8 +98,7 @@
                 }
             });
             function btn(){
-                $('#sensors').val(i.toString()+o.toString());
-                alert(('#sensors').val());
+                $('#sensors').val(o.toString());
             }
         </script>   
     </body>

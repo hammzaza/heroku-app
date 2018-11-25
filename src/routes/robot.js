@@ -8,18 +8,12 @@ module.exports = function(app,passport){
     })
     app.post('/register-robot',function(req,res){
         robot = new Robot();
-        dht = true;
         mq = true;
         sensors = req.body.sensors;
-        if(sensors[0] =='0')
-            dht=false
-        if(sensors[1] == '0')
+        if(sensors[0] == '0')
             mq = false;
         name = req.body.name;
-        console.log(name)
         robotid = parseInt(name[name.length-1])
-
-        robot.dht = dht;
         robot.mq = mq;
         robot.name = name;
         robot.robotid = robotid
