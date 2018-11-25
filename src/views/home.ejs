@@ -247,7 +247,7 @@
         socket.emit('checkdata',true);
     });
     socket.on('sensor',function(data){
-        if(temprange < data.temp){
+        if(corange < data){
             socket.emit('userlog',data);
             socket.emit('setrange',corange);
         }
