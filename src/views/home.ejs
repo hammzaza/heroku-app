@@ -122,15 +122,15 @@
                 <div class="demo-charts mdl-color--white mdl-shadow--2dp mdl-cell mdl-cell--12-col mdl-grid">
                         <svg fill="currentColor" height="100px" viewBox="0 0 1 1" class="demo-chart mdl-cell mdl-cell--4-col mdl-cell--4-col-desktop">
                         <use xlink:href="#piechart" mask="url(#piemask)" />
-                        <text id="ppm" x="0.5" y="0.5" font-family="Roboto" font-size="0.3" fill="#888" text-anchor="middle" dy="0.1">82</text>
+                        <text id="ppm" x="0.5" y="0.5" font-family="Roboto" font-size="0.1" fill="#888" text-anchor="middle" dy="0.1">82</text>
                         </svg>
                         <svg fill="currentColor" height="100px" viewBox="0 0 1 1" class="demo-chart mdl-cell mdl-cell--4-col mdl-cell--4-col-desktop">
                         <use xlink:href="#piechart" mask="url(#piemask)" />
-                        <text id = "lat" x="0.5" y="0.5" font-family="Roboto" font-size="0.3" fill="#888" text-anchor="middle" dy="0.1">82</text>
+                        <text id = "lat" x="0.5" y="0.5" font-family="Roboto" font-size="0.1" fill="#888" text-anchor="middle" dy="0.1">82</text>
                         </svg>
                         <svg fill="currentColor" height="100px" viewBox="0 0 1 1" class="demo-chart mdl-cell mdl-cell--4-col mdl-cell--4-col-desktop">
                         <use xlink:href="#piechart" mask="url(#piemask)" />
-                        <text id="lon" x="0.5" y="0.5" font-family="Roboto" font-size="0.3" fill="#888" text-anchor="middle" dy="0.1">82</text>
+                        <text id="lon" x="0.5" y="0.5" font-family="Roboto" font-size="0.1" fill="#888" text-anchor="middle" dy="0.1">82</text>
                         </svg>
                 </div>
                 <div class="demo-charts mdl-color--white mdl-shadow--2dp mdl-cell mdl-cell--12-col mdl-grid">
@@ -206,8 +206,12 @@
     function starttime(){
 
             start=true;
-            if(parseInt($('#ranco').val() != -1))
+            temp = $('#ranco').val();
+            temp = parseInt(temp);
+            if(temp != -1)
                 corange = parseInt($('#ranco').val());
+            alert(corange)
+            socket.emit('setrange',corange);
             $('#buttonforstart').remove();
             $('#showrobotdata').show();
             socket.emit('availablerobot',id);
@@ -252,7 +256,7 @@
     socket.on('sensor',function(data){
         if(corange < data){
             socket.emit('userlog',data);
-            socket.emit('setrange',corange);
+            
         }
         $('#ppm').html(data);
         socket.emit('checkdata',true);
