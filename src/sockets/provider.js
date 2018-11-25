@@ -5,6 +5,7 @@ var roboticdata = [];
 var ppms = [];
 var userlog = [];
 var range = 0;
+var username = '';
 var UserLog = require('../schemas/userlog');
 module.exports = function(server){
 
@@ -23,6 +24,9 @@ module.exports = function(server){
                 }
             }
         });
+        socket.on('getuser',function(data){
+            username = data;
+        })
         socket.on('userlog',function(data){
             userlog.push(data);
         })
@@ -75,7 +79,7 @@ module.exports = function(server){
                     for(var i = 0 ; i < roboticdata.length; i++){
                         console.log(ppm[i]);
                         userlog = new UserLog();
-                        userlog.userid = req.user.username;
+                        userlog.userid = username;
                         userlog.lat = roboticdata[i].lat;
                         userlog.lon = roboticdata[i].lon;
                         userlog.range = range;

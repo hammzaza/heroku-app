@@ -177,7 +177,7 @@
                 </div>
         </dialog>
     </div>
-    
+    <input id="usernameval" type="text" value="<%=username%>" style="display:none;">
     <script src="/socket.io/socket.io.js"></script>
     <script>
     $("#sort").change(function(){
@@ -204,12 +204,15 @@
     start = false;
     
     function starttime(){
+
             start=true;
             if(parseInt($('#ranco').val() != -1))
                 corange = parseInt($('#ranco').val());
             $('#buttonforstart').remove();
             $('#showrobotdata').show();
             socket.emit('availablerobot',id);
+            name = $('#usernameval').val();
+            socket.emit('getuser',name)
             socket.emit('Start',true);
     }
     socket.on('timeup',function(data){

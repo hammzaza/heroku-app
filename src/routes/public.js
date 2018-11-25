@@ -9,7 +9,7 @@ module.exports = function(app,passport){
     app.get('/home',isLoggedIn,function(req,res){
         Robot.find({},function(err,data){
             console.log(req.user.username);
-            res.render('home.ejs',{'avr':data})
+            res.render('home.ejs',{'avr':data,username:req.user.username})
         })
     });
     app.get('/data',isLoggedIn,function(req,res){
