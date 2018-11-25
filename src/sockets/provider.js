@@ -4,18 +4,18 @@ var check = false;
 var async = require('async');
 roboticdata = [];
 ppms = [];
-console.log(roboticdata)
-console.log(ppms)
+userlog = [];
+var id = -1;
 module.exports = function(server){
 
     var io = require('socket.io').listen(server);
     io.on('connection', function(socket){
         socket.on('Start',function(condition){
             check = true;
+            console.log("id - ",id)
 		    io.emit('startnode',false);
         });
-        socket.on('sensorData', function(data){
-            console.log(typeof(data))
+        socket.on('sensorData',function(data){
             if(check==true){
                 if(ppms.length <10){
                     console.log('ppms: ', data);
@@ -24,6 +24,13 @@ module.exports = function(server){
                 }
             }
         });
+        socket.on('userlog',function(data){
+            userlog.push(data);
+        })
+
+        socket.on('availablerobot',function(data){
+            id = data;
+        })
         socket.on('hello_world',function(msg){
             console.log(msg)
         })
@@ -33,22 +40,22 @@ module.exports = function(server){
                     if(roboticdata.length <10){
                         lat = parseFloat(loc.lat);
                         lon = parseFloat(loc.lon);
-                        io.emit('gps_data',loc);
+                        io.emit('gps_data' ,loc);
                         roboticdata.push({'lat':lat,'lon':lon});
                     }
             }
         });
-        socket.on('updateState',function(data){
+        socket.on('updateState' ,function(data){
             io.emit('MoveController',data);
         });
-        socket.on('checkdata',function(data){
+        socket.on('checkdata' ,function(data){
             if(roboticdata.length == 10){
             }
             if(ppms.length == 10){
                 console.log(ppms)
             }    
             if(roboticdata.length == 10 && ppms.length == 10){
-                socket.emit('timeup');
+                socket.emit('timeup' );
                 check = false;
                 var d = new Date();
                 var n = d.getHours();
@@ -67,6 +74,12 @@ module.exports = function(server){
                     avg.avgid = (avglength+1);
                     avg.save();
                     for(var i = 0 ; i < roboticdata.length; i++){
+        //                 lat: Number,
+        // lon: Number,
+        // ppm: Number,
+        // hum:Number,
+        // temp:Number,
+        // userid:String
                         console.log(ppm[i]);
                         sen = new Sensor();
                         sen.lat = roboticdata[i].lat;
@@ -81,8 +94,9 @@ module.exports = function(server){
             }
         });
         socket.on('Stop',function(data){
+            console.log(id);
             console.log('asking to stop');
-            io.emit('StopController',false);
+            io.emit('StopController' ,false);
         });
     });
 }
