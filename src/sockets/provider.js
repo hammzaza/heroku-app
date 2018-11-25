@@ -12,7 +12,6 @@ module.exports = function(server){
     io.on('connection', function(socket){
         socket.on('Start',function(condition){
             check = true;
-            console.log("id - ",id)
 		    io.emit('startnode',false);
         });
         socket.on('sensorData',function(data){
@@ -45,6 +44,7 @@ module.exports = function(server){
             }
         });
         socket.on('updateState' ,function(data){
+            console.log(data);
             io.emit('MoveController',data);
         });
         socket.on('checkdata' ,function(data){
@@ -98,7 +98,6 @@ module.exports = function(server){
             }
         });
         socket.on('Stop',function(data){
-            console.log(id);
             console.log('asking to stop');
             io.emit('StopController' ,false);
         });
