@@ -13,6 +13,7 @@ module.exports = function(app,passport){
         })
     });
     app.get('/data',isLoggedIn,function(req,res){
+        console.log(req.user.username)
         Avg.find({},function(err,avgdata){
             res.render('robotdata.ejs',{'avg':avgdata});
         });
@@ -27,6 +28,7 @@ module.exports = function(app,passport){
     
 };
 function isLoggedIn(req,res,next){
+    console.log(req.user)
     if(req.isAuthenticated())
     {
             return next();
