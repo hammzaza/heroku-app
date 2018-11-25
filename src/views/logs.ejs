@@ -84,13 +84,14 @@
                                           </tr>
                                         </thead>
                                         <tbody>
+                                            <% for (var i = 0 ; i < logs.length; i++){ %>
                                           <tr>
-                                            <td style="width:250px;">32</td>
-                                            <td style="width:250px;">72</td>
-                                            <td style="width:250px;">52</td>
-                                            <td style="width:250px;">50</td>
+                                            <td style="width:250px;"><%=logs[i].lat%></td>
+                                            <td style="width:250px;"><%=logs[i].lon%></td>
+                                            <td style="width:250px;"><%=logs[i].ppm%></td>
+                                            <td style="width:250px;"><%=logs[i].range%></td>
                                           </tr>
-                                          
+                                          <% } %>
                                         </tbody>
                                       </table>
                         </div>
