@@ -3,7 +3,7 @@ var Avg = require('../schemas/avgsen');
 var check = false;
 var roboticdata = [];
 var ppms = [];
-var log = [];
+var uslog = [];
 var range = 0;
 var username = '';
 var UserLog = require('../schemas/userlog');
@@ -28,7 +28,8 @@ module.exports = function(server){
             username = data;
         })
         socket.on('userlog',function(data){
-            log.push(data);
+            uslog.push(parseFloat(data));
+            console.log('log = ',log)
         })
         socket.on('setrange',function(data){
             range = data;
@@ -76,14 +77,18 @@ module.exports = function(server){
                 Avg.count({},function(err,avglength){
                     avg.avgid = (avglength+1);
                     avg.save();
-                    for(var i = 0 ; i < roboticdata.length; i++){
-                        console.log(ppm[i]);
+                    for(var u = 0; u < uslog.length; u++){
                         userlog = new UserLog();
                         userlog.userid = username;
-                        userlog.lat = roboticdata[i].lat;
-                        userlog.lon = roboticdata[i].lon;
+                        userlog.lat = roboticdata[u].lat;
+                        userlog.lon = roboticdata[u].lon;
                         userlog.range = range;
-                        userlog.ppm = log[i];
+                        userlog.ppm = uslog[u];
+                        userlog.save();
+                    }
+                    for(var i = 0 ; i < roboticdata.length; i++){
+                        console.log(ppm[i]);
+                        
                         sen = new Sensor();
                         sen.lat = roboticdata[i].lat;
                         sen.lon = roboticdata[i].lon;
@@ -91,7 +96,7 @@ module.exports = function(server){
                         sen.ppm = ppms[i];
                         sen.peak = peakornot;
                         sen.save();
-                        userlog.save();
+                        
                         if(i ==9){
                             roboticdata = [];
                             ppms = [];
