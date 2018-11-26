@@ -3,7 +3,7 @@ var Avg = require('../schemas/avgsen');
 var check = false;
 var roboticdata = [];
 var ppms = [];
-var userlog = [];
+var log = [];
 var range = 0;
 var username = '';
 var UserLog = require('../schemas/userlog');
@@ -28,7 +28,7 @@ module.exports = function(server){
             username = data;
         })
         socket.on('userlog',function(data){
-            userlog.push(data);
+            log.push(data);
         })
         socket.on('setrange',function(data){
             range = data;
@@ -83,7 +83,7 @@ module.exports = function(server){
                         userlog.lat = roboticdata[i].lat;
                         userlog.lon = roboticdata[i].lon;
                         userlog.range = range;
-                        userlog.ppm = ppms[i];
+                        userlog.ppm = log[i];
                         sen = new Sensor();
                         sen.lat = roboticdata[i].lat;
                         sen.lon = roboticdata[i].lon;

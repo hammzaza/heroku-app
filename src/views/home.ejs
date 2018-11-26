@@ -210,7 +210,6 @@
             temp = parseInt(temp);
             if(temp != -1)
                 corange = parseInt($('#ranco').val());
-            alert(corange)
             socket.emit('setrange',corange);
             $('#buttonforstart').remove();
             $('#showrobotdata').show();
