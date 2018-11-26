@@ -62,7 +62,7 @@
                 
                 <nav class="demo-navigation mdl-navigation">
                     <a class="mdl-navigation__link" href="/home">Home</a>
-                    <a class="mdl-navigation__link" href="/historial">Historical Data</a>
+                    <a class="mdl-navigation__link" href="/historical">Historical Data</a>
                     <a class="mdl-navigation__link" href="/user-logs">Logs</a>
                 </nav>
             </div>
@@ -138,8 +138,7 @@
             $('#comparisonchart').show();
             avgid = $('#selectedidanal').val();
             $.get("/getAnalytical/" + avgid, function(data, status){
-                console.log('hello')
-                //console.log(data.sensor);
+                
                 new Chart(document.getElementById("line-chart"), {
                     type: 'line',
                     data: {
